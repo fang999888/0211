@@ -1,5 +1,6 @@
 <?php
-$accessToken = os_getenv('LINE_CHANNEL_ACCESS_TOKEN');
+// 修正後：
+$accessToken = getenv('LINE_CHANNEL_ACCESS_TOKEN');
 $input = file_get_contents('php://input');
 $events = json_decode($input, true);
 
