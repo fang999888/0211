@@ -4,25 +4,63 @@ const app = express();
 
 app.use(express.json());
 
-const chickenSoup = ["每一天都是新的開始。", "越努力，越幸運。", "你是最棒的。"]; // 自行補齊至15句
-const poison = ["努力不一定成功，但放棄很舒服。", "你不是胖，是骨架大。", "醒醒吧。"]; // 自行補齊至15句
+const chickenSoup = [
+    "每一天都是新的開始。", "越努力，越幸運。", "你的堅持，終將美好。", "心若向陽，無畏傷悲。", "星光不問趕路人，時光不負有心人。",
+    "做自己的光。", "跌倒了，爬起來就是英雄。", "平凡的腳步也能走完偉大行程。", "夢想值得被溫柔對待。", "不忘初心，方得始終。",
+    "你是獨一無二的風景。", "擁抱改變，是成長的開始。", "生活在於精彩，不在於長短。", "只要還有明天，今天就是起跑線。", "這世界比你想像中溫暖。",
+    "每一滴汗水都是成功的墊腳石。", "勇氣是通往目標的橋樑。", "自信是成功的第一秘訣。", "即使緩慢，也要不停走下去。", "把溫暖留給愛你的人。",
+    "最黑暗的時刻最接近黎明。", "不要為小事煩惱。", "人生沒有白走的路。", "你的努力，時間看得見。", "所有的不期而遇都在路上。",
+    "活在當下，感受美好。", "每一種挫折都是成長。", "夢想是不會老去的。", "相信自己，力量就在心中。", "善待自己，你是最珍貴的。",
+    "微笑是最好的名片。", "簡單生活，快樂至上。", "追隨你的熱情。", "逆風的方向，更適合飛翔。", "堅持就是勝利。",
+    "心中有愛，處處是風景。", "願你被這世界溫柔以待。", "勇往直前，莫問前程。", "成功的關鍵在於意志力。", "讓夢想在心中發芽。",
+    "保持熱愛，奔赴山海。", "路再長，走下去總會到。", "你是自己人生的主角。", "不要停止學習。", "未來可期。",
+    "感恩生活中的每一份小確幸。", "勇敢做自己。", "沉澱心靈，遇見更好的自己。", "心存感激，所遇皆溫柔。", "明天會更好。"
+];
+
+const poison = [
+    "努力不一定成功，但放棄一定很舒服。", "長得醜不是你的錯，但出來嚇人就是你的不對。", "上帝關了你的門，還順便把窗焊死。", "別以為有錢人很快樂，他們的快樂你想像不到。", "醜小鴨變天鵝是因為牠爸媽是天鵝。",
+    "你不是胖，你只是骨架大到溢出來了。", "別再說你一無所有，你不是還有病嗎？", "如果你覺得一事無成，別難過，你是對的。", "有些人出現在你生命裡是為了告訴你，你真好騙。", "善良沒用，你得漂亮，還要更有錢。",
+    "現在沒錢算什麼，以後沒錢的日子還多著呢。", "生活不只有眼前的苟且，還有遠方的湊合。", "你的意中人是蓋世英雄，但他去接別人了。", "鹹魚翻身了，還是鹹魚。", "所謂成熟，是發現以前想不通的事，現在不想通了。",
+    "單身不是沒人要，而是你太挑（其實是沒人要）。", "比你優秀的人還在努力，那你努力還有什麼用？", "世上無難事，只要肯放棄。", "萬事起頭難，中間難，結尾也難。", "你努力過後，才知道天賦有多重要。",
+    "逃避雖然有用，但沒什麼用。", "上帝是公平的，給了你醜的外表，還會給你低的智商。", "只要是石頭，到哪裡都不會發光的。", "你以為你是公主，其實你是公豬。", "雖然你長得醜，但你想得美啊。",
+    "人家那叫努力，你那叫體力勞動。", "如果一個人突然對你好，他可能要借錢。", "你哪有什麼選擇困難症，還不是因為窮。", "愛笑的女生運氣不會太差，因為運氣差的笑不出來。", "條條大路通羅馬，有人出生就在羅馬。",
+    "失敗並不可怕，可怕的是你還相信這句話。", "夢想還是要有的，萬一實現了...也不關你的事。", "別對我大聲說話，我有恐豬症。", "你的臉皮比長城還厚。", "你這種智商，連掃地機器人都會嫌棄你。",
+    "看到你過得不好，我也就放心了。", "你是來拉低這條街智商水平的嗎？", "人要是沒了夢想，跟無憂無慮有什麼區別？", "你這腦袋是裝飾品嗎？", "你不討厭，但你的存在讓我不舒服。",
+    "你的臉真大，一張照片裝不下。", "你以為你是焦點，其實你只是個汙點。", "沒事多照照鏡子，你就知道為什麼沒人追了。", "我不是看不起你，是根本沒看到你。", "你活著就是對二氧化碳的浪費。",
+    "別再自我感覺良好，那叫幻覺。", "你的存在就是為了證明進化論也會出錯。", "如果你不努力，你就不知道什麼叫絕望。", "別跟我談理想，我的理想就是不上班。", "你的幽默感跟你的長相一樣讓人尷尬。"
+];
 
 app.post('/', async (req, res) => {
     const events = req.body.events;
+    if (!events) return res.sendStatus(200);
+
     for (let event of events) {
-        if (event.type === 'message') {
-            const all = [...chickenSoup, ...poison];
-            const msg = all[Math.floor(Math.random() * all.length)];
-            
-            await axios.post('https://api.line.me/v2/bot/message/reply', {
-                replyToken: event.replyToken,
-                messages: [{ type: 'text', text: msg }]
-            }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`
-                }
-            });
+        if (event.type === 'message' && event.message.type === 'text') {
+            const userText = event.message.text;
+            let replyText = "";
+
+            if (userText.includes("雞湯")) {
+                replyText = chickenSoup[Math.floor(Math.random() * chickenSoup.length)];
+            } else if (userText.includes("毒舌")) {
+                replyText = poison[Math.floor(Math.random() * poison.length)];
+            } else {
+                const all = [...chickenSoup, ...poison];
+                replyText = all[Math.floor(Math.random() * all.length)];
+            }
+
+            try {
+                await axios.post('https://api.line.me/v2/bot/message/reply', {
+                    replyToken: event.replyToken,
+                    messages: [{ type: 'text', text: replyText }]
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${process.env.LINE_CHANNEL_ACCESS_TOKEN}`
+                    }
+                });
+            } catch (err) {
+                console.error("LINE API Error");
+            }
         }
     }
     res.sendStatus(200);
